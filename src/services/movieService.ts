@@ -4,11 +4,13 @@ import type { Movie } from "../types/movie";
 const token = import.meta.env.VITE_TMDB_TOKEN;
 
 interface FetchMoviesParams {
-  query: string;   
+  query: string;
+  page?: number;
 }
 
 interface MoviesResponse {
-    results: Movie[]; 
+  results: Movie[]; 
+  total_pages: number;
 }
 
 export const fetchMovies = async (params: FetchMoviesParams): Promise<MoviesResponse> => { 
