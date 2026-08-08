@@ -21,7 +21,7 @@ const ReactPaginate = (ReactPaginateModule as unknown as ModuleWithDefault<Compo
 function App() {
 
   const [query, setQuery] = useState<string>("");
-  const [currentPage, setPage] = useState(1);
+  const [currentPage, setcurrentPage] = useState(1);
   const [selectedMovie, setSelectedMovie] = useState<Movie | null>(null);
  
   const { data: movies, isLoading, isError } = useQuery({
@@ -57,7 +57,7 @@ function App() {
         pageCount={movies.total_pages}
         pageRangeDisplayed={5}
         marginPagesDisplayed={1}
-        onPageChange={({ selected }) => setPage(selected + 1)}
+        onPageChange={({ selected }) => setcurrentPage(selected + 1)}
         forcePage={currentPage - 1}
         containerClassName={css.pagination}
         activeClassName={css.active}
