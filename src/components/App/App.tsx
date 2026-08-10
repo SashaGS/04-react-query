@@ -51,9 +51,9 @@ function App() {
   return (
     <>
       <SearchBar onSubmit={handleSearch} /> 
-      {isLoading && <Loader />}
+      {query && isLoading && <Loader />}
       {isSuccess && movies && movies.results && movies.results.length > 0 && <MovieGrid onSelect={handleSelect} movies={movies.results} />}
-      {movies && movies.total_pages > 1 && <ReactPaginate
+      {isSuccess && movies.total_pages > 1 && <ReactPaginate
         pageCount={movies.total_pages}
         pageRangeDisplayed={5}
         marginPagesDisplayed={1}
