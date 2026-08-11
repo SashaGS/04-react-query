@@ -26,7 +26,7 @@ function App() {
  
   const { data: movies, isLoading, isError , isSuccess} = useQuery({
     queryKey: ['movies', query, currentPage ],
-    queryFn: () => fetchMovies({ query, page:currentPage }),
+    queryFn: () => fetchMovies(query, currentPage ),
     enabled: query.trim().length > 0,
     placeholderData: keepPreviousData,
     retry: 2,
@@ -40,6 +40,7 @@ function App() {
       toast("Please enter your search query.");
     } else { 
       setQuery(data);
+      setcurrentPage(1);
     }
   }
   
