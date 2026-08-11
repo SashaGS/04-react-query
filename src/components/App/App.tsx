@@ -1,7 +1,7 @@
-import {useState } from 'react';
+import {useEffect, useState } from 'react';
 import { fetchMovies } from "../../services/movieService";
 import {type Movie } from "../../types/movie";
-import toast from 'react-hot-toast';
+import toast ,{ Toaster } from 'react-hot-toast';
 import SearchBar from '../SearchBar/SearchBar'
 import MovieGrid from '../MovieGrid/MovieGrid'
 import Loader from '../Loader/Loader'
@@ -9,6 +9,7 @@ import './App.module.css'
 import ErrorMessage from '../ErrorMessage/ErrorMessage';
 import MovieModal from '../MovieModal/MovieModal';
 import { useQuery, keepPreviousData } from '@tanstack/react-query';
+import 'react-toastify/dist/ReactToastify.css';
 
 import ReactPaginateModule from "react-paginate";
 import type { ReactPaginateProps } from "react-paginate";
@@ -48,10 +49,24 @@ function App() {
             const movie = movies?.results.find((movie) => movie.id === m_movie.id);
             setSelectedMovie(movie || null);
   }
+
+  useEffect(() => {
+    if (isSuccess && movies?.results?.length === 0) {
+      toast("Жодного фільму не знайдено");
+    }
+  }, [isSuccess, movies]);
  
   return (
     <>
       <SearchBar onSubmit={handleSearch} /> 
+      <Toaster
+      toastOptions={{
+          className: '',
+          style: {
+            border: '1px solid #713200',
+            background:'#d67719cb',
+          },
+      }}/>
       {query && isLoading && <Loader />}
       {isSuccess && movies && movies.results && movies.results.length > 0 && <MovieGrid onSelect={handleSelect} movies={movies.results} />}
       {isSuccess && movies.total_pages > 1 && <ReactPaginate
